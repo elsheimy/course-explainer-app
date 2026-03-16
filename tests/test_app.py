@@ -25,7 +25,12 @@ class AppTestCase(unittest.TestCase):
     def test_course(self):
         response = self.app.get('/course/1')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Course Details', response.data)
+        self.assertIn(b'Introduction to Python', response.data)
+        self.assertIn(b'John Doe', response.data)
+
+    def test_course_not_found(self):
+        response = self.app.get('/course/999')
+        self.assertEqual(response.status_code, 404)
 
     def test_golang_course(self):
         response = self.app.get('/course/4')
